@@ -1,6 +1,8 @@
 package no.netcompany.sprak.cucumber
 
 import cucumber.api.java8.No
+import no.netcompany.sprak.tolk
+import org.junit.Assert.assertEquals
 import java.time.LocalDate
 
 class TestLim : No {
@@ -20,7 +22,9 @@ class TestLim : No {
         Så("^får man ([0-9\\-]+)$") { forventetDatoString: String ->
             this.forventetDato = LocalDate.parse(forventetDatoString)
 
-            TODO("tolk dato (dato=$gittDato, input='$tekst', forventet=$forventetDato)")
+            val resultat = tolk(gittDato, tekst)
+
+            assertEquals(forventetDato, resultat)
         }
     }
 }

@@ -4,6 +4,7 @@ import java.time.DayOfWeek
 import java.time.DayOfWeek.*
 import java.time.LocalDate
 import java.time.Month
+import java.time.temporal.TemporalAdjusters
 
 fun tolk(gittDato: LocalDate, tekst: String): LocalDate {
     if (finnIDagITekst(tekst)) {
@@ -40,22 +41,38 @@ private fun finnMåned(tekst: String): Month {
     }
 }
 
-private fun finnNteUkedagIMåned(gittDato: LocalDate, antall: Int, ukedag: DayOfWeek, måned: Month): LocalDate {
-    val nesteUkedag = finnUkedagIMåned(gittDato, ukedag, måned)
+private fun finnNteUkedagIMåned(fraDato: LocalDate, antall: Int, ukedag: DayOfWeek, måned: Month): LocalDate {
+    val startdatoForMåned = finnStartdatoForMåned(måned, fraDato)
+
+    return finnNteUkedag(startdatoForMåned, antall, ukedag)
+}
+
+private fun finnNteUkedag(fraDato: LocalDate, antall: Int, ukedag: DayOfWeek): LocalDate {
+    val nesteUkedag = finnUkedag(fraDato, ukedag)
 
     if (antall == 1) {
         return nesteUkedag;
     }
 
-    return finnNteUkedagIMåned(nesteUkedag.plusDays(1), antall - 1, ukedag, måned)
+    return finnNteUkedag(nesteUkedag.plusDays(1), antall - 1, ukedag)
 }
 
-private fun finnUkedagIMåned(gittDato: LocalDate, ukedag: DayOfWeek, måned: Month): LocalDate {
-    var dag = gittDato
+private fun finnUkedag(fraDato: LocalDate, ukedag: DayOfWeek): LocalDate {
+    var dag = fraDato
 
-    while (dag.dayOfWeek != ukedag || dag.month != måned) {
+    while (dag.dayOfWeek != ukedag) {
         dag = dag.plusDays(1)
     }
 
     return dag;
+}
+
+private fun finnStartdatoForMåned(måned: Month, fraDato: LocalDate): LocalDate {
+    var dato = fraDato
+
+    while (dato.month != måned) {
+        dato = dato.with(TemporalAdjusters.firstDayOfNextMonth())
+    }
+
+    return dato
 }

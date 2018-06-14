@@ -6,37 +6,56 @@ import java.time.LocalDate
 import java.time.Month
 
 fun tolk(gittDato: LocalDate, tekst: String): LocalDate {
-    if(finnIDagITekst(tekst)){
+    if (finnIDagITekst(tekst)) {
         return gittDato
     }
-    return finnDagIUken(gittDato, tekst.substring(0, 1).toLong(), finnDag(tekst))
+
+    val antall = tekst.substring(0, 1).toInt()
+    val ukedag = finnUkedag(tekst)
+    val måned = finnMåned(tekst)
+
+    return finnNteUkedagIMåned(gittDato, antall, ukedag, måned)
 }
 
 private fun finnIDagITekst(tekst: String): Boolean {
     return "idag" in tekst || "i dag" in tekst
 }
 
-private fun finnDag(tekst: String): DayOfWeek {
+private fun finnUkedag(tekst: String): DayOfWeek {
     return when {
-        tekst.contains("mandag") -> MONDAY
-        tekst.contains("onsdag") -> WEDNESDAY
-        tekst.contains("torsdag") -> THURSDAY
-        tekst.contains("fredag") -> FRIDAY
-        else -> throw Exception()
+        "mandag" in tekst -> MONDAY
+        "tirsdag" in tekst -> TUESDAY
+        "onsdag" in tekst -> WEDNESDAY
+        "torsdag" in tekst -> THURSDAY
+        "fredag" in tekst -> FRIDAY
+        else -> throw IllegalArgumentException("Klarte ikke tolke ukedag")
     }
 }
 
-private fun finnDagIUken(gittDato: LocalDate, antall: Long, dayOfWeek: DayOfWeek): LocalDate {
-    if(antall == 1L){
-        return finnDagIUke(gittDato, dayOfWeek);
+private fun finnMåned(tekst: String): Month {
+    return when {
+        "juli" in tekst -> Month.JULY
+        "august" in tekst -> Month.AUGUST
+        else -> throw IllegalArgumentException("Klarte ikke tolke måned")
     }
-    return finnDagIUken(finnDagIUke(gittDato, dayOfWeek).plusDays(1), antall - 1L, dayOfWeek)
 }
 
-private fun finnDagIUke(gittDato: LocalDate, dayOfWeek: DayOfWeek): LocalDate {
+private fun finnNteUkedagIMåned(gittDato: LocalDate, antall: Int, ukedag: DayOfWeek, måned: Month): LocalDate {
+    val nesteUkedag = finnUkedagIMåned(gittDato, ukedag, måned)
+
+    if (antall == 1) {
+        return nesteUkedag;
+    }
+
+    return finnNteUkedagIMåned(nesteUkedag.plusDays(1), antall - 1, ukedag, måned)
+}
+
+private fun finnUkedagIMåned(gittDato: LocalDate, ukedag: DayOfWeek, måned: Month): LocalDate {
     var dag = gittDato
-    while (dag.dayOfWeek != dayOfWeek || dag.month != Month.JULY) {
+
+    while (dag.dayOfWeek != ukedag || dag.month != måned) {
         dag = dag.plusDays(1)
     }
+
     return dag;
 }

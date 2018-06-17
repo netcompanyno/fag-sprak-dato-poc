@@ -21,3 +21,4 @@ Egenskap: Nte ukedag i måned
       | 2018-06-14 | "3. tirsdag i august" | 2018-08-21 |
       | 2018-06-14 | "4. tirsdag i august" | 2018-08-28 |
       | 2018-06-14 | "1. onsdag i august"  | 2018-08-01 |
+      | 2018-08-24 | "1. onsdag i juli"    | 2019-07-03 |

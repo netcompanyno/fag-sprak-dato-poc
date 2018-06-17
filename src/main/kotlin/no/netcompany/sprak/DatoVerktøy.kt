@@ -16,7 +16,7 @@ private fun finnNteUkedag(fraDato: LocalDate, antall: Int, ukedag: DayOfWeek): L
 }
 
 private fun finnStartdatoForMåned(måned: Month, fraDato: LocalDate): LocalDate {
-    val antallMånederFram = (måned.ordinal - fraDato.month.ordinal) % 12L
+    val antallMånederFram = (måned.ordinal - fraDato.month.ordinal + 12) % 12L
 
     return fraDato.plusMonths(antallMånederFram).withDayOfMonth(1)
 }

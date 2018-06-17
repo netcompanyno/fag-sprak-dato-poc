@@ -11,33 +11,12 @@ internal fun finnNteUkedagIMåned(fraDato: LocalDate, antall: Int, ukedag: DayOf
     return finnNteUkedag(startdatoForMåned, antall, ukedag)
 }
 
-internal fun finnNteUkedag(fraDato: LocalDate, antall: Int, ukedag: DayOfWeek): LocalDate {
-    val nesteUkedag = finnUkedag(fraDato, ukedag)
-
-    if (antall == 1) {
-        return nesteUkedag;
-    }
-
-    return finnNteUkedag(nesteUkedag.plusDays(1), antall - 1, ukedag)
+private fun finnNteUkedag(fraDato: LocalDate, antall: Int, ukedag: DayOfWeek): LocalDate {
+    return fraDato.with(TemporalAdjusters.dayOfWeekInMonth(antall, ukedag))
 }
 
-internal fun finnUkedag(fraDato: LocalDate, ukedag: DayOfWeek): LocalDate {
-    var dag = fraDato
+private fun finnStartdatoForMåned(måned: Month, fraDato: LocalDate): LocalDate {
+    val antallMånederFram = (måned.ordinal - fraDato.month.ordinal) % 12L
 
-    while (dag.dayOfWeek != ukedag) {
-        dag = dag.plusDays(1)
-    }
-
-    return dag;
+    return fraDato.plusMonths(antallMånederFram).withDayOfMonth(1)
 }
-
-internal fun finnStartdatoForMåned(måned: Month, fraDato: LocalDate): LocalDate {
-    var dato = fraDato
-
-    while (dato.month != måned) {
-        dato = dato.with(TemporalAdjusters.firstDayOfNextMonth())
-    }
-
-    return dato
-}
-

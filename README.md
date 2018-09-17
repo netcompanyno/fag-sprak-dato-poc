@@ -20,7 +20,7 @@ Utvikling – Kom i gang
 IntelliJ bør begynne å indeksere og konfigurere Gradle og bygge og holde på en 
 god stund.
 
-Finn klassen [`KjørCucumberTester`](src/test/kotlin/KjørCucumberTester.kt), 
+Finn klassen [`KjørCucumberTester`](src/test/kotlin/no/netcompany/datotolk/cucumber/KjørCucumberTester.kt), 
 høyreklikk den og velg _Run_.
 
 ### Skriv en test
@@ -32,6 +32,6 @@ nytt bør noe feile.
 ### Få testen til å kjøre
 
 Først når du har en test som feiler, skal du skrive noe kode. Inngangsporten er 
-klassen [DatoTolk](src/main/kotlin/no/netcompany/sprak/DatoTolk.kt). Skriv kode 
+klassen [DatoTolk](src/main/kotlin/no/netcompany/datotolk/DatoTolk.kt). Skriv kode 
 helt til testene kjører grønt igjen, og skriv en ny test som feiler, helt til du 
 er førnøyd.

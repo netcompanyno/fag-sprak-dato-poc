@@ -15,7 +15,7 @@ plugins {
     id "com.github.samueltbrown.cucumber" version "0.9"
 }
 
-group 'no.netcompany.sprak'
+group 'no.netcompany.datotolk'
 version '0.1-SNAPSHOT'
 
 apply plugin: 'java'
@@ -44,6 +44,6 @@ compileTestKotlin {
 
 cucumber {
     formats = ['pretty', 'json:build/cucumber.json', 'junit:build/cucumber.xml']
-    glueDirs = ['src/test/kotlin/no/netcompany/sprak/cucumber']
+    glueDirs = ['src/test/kotlin/no/netcompany/datotolk/cucumber']
     featureDirs = ['src/test/resources/features']
 }

@@ -1,4 +1,4 @@
-package no.netcompany.sprak
+package no.netcompany.datotolk.util
 
 import java.time.DayOfWeek
 import java.time.LocalDate

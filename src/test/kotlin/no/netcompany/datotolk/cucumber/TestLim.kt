@@ -1,7 +1,7 @@
-package no.netcompany.sprak.cucumber
+package no.netcompany.datotolk.cucumber
 
 import cucumber.api.java8.No
-import no.netcompany.sprak.tolk
+import no.netcompany.datotolk.tolk
 import org.junit.Assert.assertEquals
 import java.time.LocalDate
 

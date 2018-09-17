@@ -1,5 +1,9 @@
-package no.netcompany.sprak
+package no.netcompany.datotolk
 
+import no.netcompany.datotolk.util.finnMåned
+import no.netcompany.datotolk.util.finnNteUkedagIMåned
+import no.netcompany.datotolk.util.finnUkedag
+import no.netcompany.datotolk.util.inneholderIdag
 import java.time.LocalDate
 
 fun tolk(gittDato: LocalDate, tekst: String): LocalDate {

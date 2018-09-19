@@ -8,7 +8,7 @@ internal fun inneholderIdag(tekst: String): Boolean {
 }
 
 internal fun inneholderIfjor(tekst: String): Boolean {
-    return "ifjor" in tekst || "i fjor" in tekst
+    return "samme dag ifjor" in tekst || "samme dag i fjor" in tekst || "for et år siden" in tekst
 }
 
 internal fun finnUkedag(tekst: String): DayOfWeek {

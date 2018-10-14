@@ -7,5 +7,6 @@ datoRegel : relativeBegrep # relativRegel
           ;
 
 relativeBegrep: IDAG # idagUttrykk
+              | IGAAR # igaarUttrykk
               ;
 

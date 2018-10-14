@@ -8,6 +8,7 @@ import no.netcompany.datotolk.parser.DatotolkParserBaseVisitor
 import no.netcompany.datotolk.util.finnMåned
 import no.netcompany.datotolk.util.finnNteUkedagIMåned
 import no.netcompany.datotolk.util.finnUkedag
+import no.netcompany.datotolk.util.inneholderIgår
 import org.antlr.v4.runtime.BufferedTokenStream
 import org.antlr.v4.runtime.CharStreams
 import java.time.LocalDate
@@ -22,14 +23,15 @@ private fun tolkTekstTilDatoUtleder(tekst: String): DatoUtleder {
     val parseMedAntlr = parseMedAntlr(tekst)
     if (parseMedAntlr != null) {
         return parseMedAntlr
+    } else if (inneholderIgår(tekst)) {
+        return SimpelDatoUtleder.iGaarUtleder
+    } else {
+        val antall = tekst.substring(0, 1).toInt()
+        val ukedag = finnUkedag(tekst)
+        val måned = finnMåned(tekst)
+
+        return finnNteUkedagIMåned(antall, ukedag, måned)
     }
-
-    // Fallback for ting som ikke er implementert med Antlr ennå:
-    val antall = tekst.substring(0, 1).toInt()
-    val ukedag = finnUkedag(tekst)
-    val måned = finnMåned(tekst)
-
-    return finnNteUkedagIMåned(antall, ukedag, måned)
 }
 
 private fun parseMedAntlr(tekst: String): DatoUtleder? {

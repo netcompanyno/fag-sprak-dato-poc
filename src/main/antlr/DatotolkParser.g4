@@ -2,4 +2,10 @@ parser grammar DatotolkParser;
 
 options { tokenVocab=DatotolkLexer; }
 
-dato : WS | EOF ;
+datoRegel : relativeBegrep # relativRegel
+          | EOF #tomDato
+          ;
+
+relativeBegrep: IDAG # idagUttrykk
+              ;
+

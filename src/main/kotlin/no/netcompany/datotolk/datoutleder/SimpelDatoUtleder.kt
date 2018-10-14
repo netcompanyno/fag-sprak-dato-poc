@@ -7,5 +7,6 @@ class SimpelDatoUtleder(private val funksjon: (startdato: LocalDate) -> LocalDat
 
     companion object {
         val iDagUtleder = SimpelDatoUtleder { dato -> dato }
+        val ifjorUtleder = SimpelDatoUtleder { dato -> dato.minusYears(1)}
     }
 }

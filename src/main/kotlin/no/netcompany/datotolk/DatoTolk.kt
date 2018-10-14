@@ -2,10 +2,7 @@ package no.netcompany.datotolk
 
 import no.netcompany.datotolk.datoutleder.DatoUtleder
 import no.netcompany.datotolk.datoutleder.SimpelDatoUtleder
-import no.netcompany.datotolk.util.finnMåned
-import no.netcompany.datotolk.util.finnNteUkedagIMåned
-import no.netcompany.datotolk.util.finnUkedag
-import no.netcompany.datotolk.util.inneholderIdag
+import no.netcompany.datotolk.util.*
 import java.time.LocalDate
 
 fun tolk(startdato: LocalDate, tekst: String): LocalDate {
@@ -17,6 +14,8 @@ fun tolk(startdato: LocalDate, tekst: String): LocalDate {
 private fun tolkTekstTilDatoUtleder(tekst: String): DatoUtleder {
     if (inneholderIdag(tekst)) {
         return SimpelDatoUtleder.iDagUtleder
+    } else if (inneholderIfjor(tekst)) {
+        return SimpelDatoUtleder.ifjorUtleder
     } else {
         val antall = tekst.substring(0, 1).toInt()
         val ukedag = finnUkedag(tekst)

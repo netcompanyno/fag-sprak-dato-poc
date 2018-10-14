@@ -20,6 +20,20 @@ Utvikling – Kom i gang
 IntelliJ bør begynne å indeksere og konfigurere Gradle og bygge og holde på en 
 god stund.
 
+### Konfigurer Gradle
+
+For å få Gradle/IntelliJ til å forstå seg på de genererte filene fra Antlr, må vi endre litt på standard innstillinger.
+
+#### Settings > Build, Execution, Deployment > Build Tools > Gradle
+
+* *Use Auto-import*: **Ja**
+* *Create directories for empty content roots automatically*: **Ja**
+* *Group modules*: **using explicit module groups**
+* *Create separate module per source set*: **Nei**
+* *Store generated project files externally*: **Ja**
+
+### Kjør tester
+
 Finn klassen [`KjørCucumberTester`](src/test/kotlin/no/netcompany/datotolk/cucumber/KjørCucumberTester.kt), 
 høyreklikk den og velg _Run_.
 

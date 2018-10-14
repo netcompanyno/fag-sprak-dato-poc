@@ -16,4 +16,14 @@ object SimpelDatoUtlederTest : Spek({
             assertEquals(startdato2, SimpelDatoUtleder.iDagUtleder.fra(startdato2))
         }
     }
+    describe("iGårUtleder") {
+        it("returnerer gårsdagens dato") {
+            val startdato = LocalDate.parse("2018-09-19")
+            val forventet = LocalDate.parse("2018-09-18")
+
+            val resultat = SimpelDatoUtleder.iGaarUtleder.fra(startdato)
+
+            assertEquals(forventet, resultat)
+        }
+    }
 })

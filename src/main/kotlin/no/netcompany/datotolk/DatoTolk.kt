@@ -24,6 +24,7 @@ private fun tolkTekstTilDatoUtleder(tekst: String): DatoUtleder {
         return parseMedAntlr
     }
 
+    // Fallback for ting som ikke er implementert med Antlr ennå:
     val antall = tekst.substring(0, 1).toInt()
     val ukedag = finnUkedag(tekst)
     val måned = finnMåned(tekst)
@@ -34,17 +35,19 @@ private fun tolkTekstTilDatoUtleder(tekst: String): DatoUtleder {
 private fun parseMedAntlr(tekst: String): DatoUtleder? {
     val lexer = DatotolkLexer(CharStreams.fromString(tekst))
     val parser = DatotolkParser(BufferedTokenStream(lexer))
-    val datoVisitor = DatoVisitor()
-    return datoVisitor.visit(parser.datoRegel())
+
+    val datoVisitor = DatoUtlederVisitor()
+
+    return datoVisitor.visit(parser.dato())
 }
 
-private class DatoVisitor : DatotolkParserBaseVisitor<DatoUtleder>() {
+private class DatoUtlederVisitor : DatotolkParserBaseVisitor<DatoUtleder>() {
 
-    override fun visitIdagUttrykk(ctx: DatotolkParser.IdagUttrykkContext): DatoUtleder {
+    override fun visitIdag(ctx: DatotolkParser.IdagContext): DatoUtleder {
         return SimpelDatoUtleder.iDagUtleder
     }
 
-    override fun visitIgaarUttrykk(ctx: DatotolkParser.IgaarUttrykkContext): DatoUtleder {
+    override fun visitIgaar(ctx: DatotolkParser.IgaarContext): DatoUtleder {
         return SimpelDatoUtleder.iGaarUtleder
     }
 

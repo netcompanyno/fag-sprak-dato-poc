@@ -2,11 +2,11 @@ parser grammar DatotolkParser;
 
 options { tokenVocab=DatotolkLexer; }
 
-datoRegel : relativeBegrep # relativRegel
-          | EOF #tomDato
-          ;
+dato : relativ #relativDato
+     | EOF #tomDato
+     ;
 
-relativeBegrep: IDAG # idagUttrykk
-              | IGAAR # igaarUttrykk
-              ;
+relativ: IDAG #idag
+       | IGAAR #igaar
+       ;
 

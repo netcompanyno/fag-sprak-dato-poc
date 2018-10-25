@@ -3,7 +3,7 @@ Dato-tolk
 
 Dato-tolk er et bibliotek som gjør om norsk tekst til dato-objekter.
 
-F.eks. `i dag`, `på mandag`, `2. tirsdag i august`, ...
+F.eks. `i dag`, `på mandag`, `2. tirsdag i august`, `2 uker og 5 dager etter førstkommende fredag den 13.`, ...
 
 
 Utvikling – Kom i gang

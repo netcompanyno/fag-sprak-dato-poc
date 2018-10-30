@@ -14,7 +14,14 @@ AUGUST : 'august' ;
 
 SIFFER: [0-9] ;
 
+MAANED : 'måned' | 'måneder' ;
+AAR : 'år' ;
+
+FOR : 'for' ;
+SIDEN : 'siden' ;
+
 I : 'i' ;
+OG : 'og' | ',' ;
 PUNKTUM: '.' ;
 
 WS : [ \t]+ -> skip ;

@@ -7,9 +7,15 @@ dato : relativ #relativDato
      | EOF #tomDato
      ;
 
-relativ: IDAG #idag
-       | IGAAR #igaar
-       ;
+relativ : IDAG #idag
+        | IGAAR #igaar
+        | FOR periode SIDEN #forSiden
+        ;
+
+periode : tall AAR #antallAar
+        | tall MAANED #antallMaaneder
+        | periode OG periode #perioder
+        ;
 
 fast : flytendeUkedag I maaned #nteUkedagIMaaned
      ;

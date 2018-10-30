@@ -14,6 +14,11 @@ object DatoUtlederVisitor : DatotolkParserBaseVisitor<DatoUtleder>() {
         return SimpelDatoUtleder.iGaarUtleder
     }
 
+    override fun visitForSiden(ctx: DatotolkParser.ForSidenContext): DatoUtleder {
+        val periode = PeriodeVisitor.visit(ctx.periode())
+        return SimpelDatoUtleder { startdato -> startdato.minus(periode) }
+    }
+
     override fun visitNteUkedagIMaaned(ctx: DatotolkParser.NteUkedagIMaanedContext): DatoUtleder {
         val maanedUtleder = visit(ctx.maaned())
         val ukedagUtleder = visit(ctx.flytendeUkedag())

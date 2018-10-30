@@ -1,5 +1,8 @@
 #language: no
+#noinspection NonAsciiCharacters
 Egenskap: Periode
+  En periode er et antall dager, uker, måneder, og/eller år.
+  Brukes i uttrykk som f.eks "for ... siden".
 
   Scenariomal:
     Gitt at dagens dato er <dato>
@@ -25,4 +28,3 @@ Egenskap: Periode
 
       | 2018-06-14 | "1 måned etter 1 måned før idag"    | 2018-06-14 |
       | 2018-06-13 | "1 måneder før idag"                | 2018-05-13 |
-

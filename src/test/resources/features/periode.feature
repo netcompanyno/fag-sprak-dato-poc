@@ -17,3 +17,5 @@ Egenskap: Periode
       | 2018-06-13 | "for 1 år, 2 måneder og 3 år siden" | 2014-04-13 |
       | 2018-06-13 | "for 2 år og 1 måned siden"         | 2016-05-13 |
 
+      | 2018-06-13 | "om 1 år"                           | 2019-06-13 |
+

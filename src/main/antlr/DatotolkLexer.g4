@@ -24,7 +24,8 @@ FOR : 'for' ;
 SIDEN : 'siden' ;
 
 I : 'i' ;
-OG : 'og' | ',' ;
+OG : 'og' ;
 PUNKTUM: '.' ;
+KOMMA: ',' ;
 
 WS : [ \t]+ -> skip ;

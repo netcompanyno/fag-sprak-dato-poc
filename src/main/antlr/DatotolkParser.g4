@@ -11,6 +11,8 @@ relativ : IDAG #idag
         | IGAAR #igaar
         | FOR periode SIDEN #forSiden
         | OM periode #om
+        | periode ETTER dato #etter
+        | periode FOER dato #foer
         ;
 
 periode : tall AAR #antallAar

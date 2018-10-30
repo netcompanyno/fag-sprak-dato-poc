@@ -17,6 +17,8 @@ SIFFER: [0-9] ;
 MAANED : 'måned' | 'måneder' ;
 AAR : 'år' ;
 
+FOER : 'før' ;
+ETTER : 'etter' ;
 OM : 'om' ;
 FOR : 'for' ;
 SIDEN : 'siden' ;

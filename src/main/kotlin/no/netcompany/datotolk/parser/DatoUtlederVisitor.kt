@@ -19,6 +19,24 @@ object DatoUtlederVisitor : DatotolkParserBaseVisitor<DatoUtleder>() {
         return SimpelDatoUtleder { startdato -> startdato.plus(periode) }
     }
 
+    override fun visitEtter(ctx: DatotolkParser.EtterContext): DatoUtleder {
+        val periode = PeriodeVisitor.visit(ctx.periode())
+        val datoutleder = visit(ctx.dato())
+
+        return SimpelDatoUtleder { startdato ->
+            datoutleder.fra(startdato).plus(periode)
+        }
+    }
+
+    override fun visitFoer(ctx: DatotolkParser.FoerContext): DatoUtleder {
+        val periode = PeriodeVisitor.visit(ctx.periode())
+        val datoutleder = visit(ctx.dato())
+
+        return SimpelDatoUtleder { startdato ->
+            datoutleder.fra(startdato).minus(periode)
+        }
+    }
+
     override fun visitForSiden(ctx: DatotolkParser.ForSidenContext): DatoUtleder {
         val periode = PeriodeVisitor.visit(ctx.periode())
         return SimpelDatoUtleder { startdato -> startdato.minus(periode) }

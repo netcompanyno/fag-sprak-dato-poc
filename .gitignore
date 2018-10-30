@@ -3,3 +3,6 @@
 .gradle/
 out/
 build/
+
+generated-src/
+*.tokens

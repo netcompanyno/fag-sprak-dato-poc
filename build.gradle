@@ -1,5 +1,6 @@
 buildscript {
     ext.kotlin_version = '1.2.41'
+    ext.antlr_version = '4.7.1'
     ext.cucumber_version = '1.2.5'
     ext.junit_version = '4.12'
     ext.spek_version = '1.1.5'
@@ -19,18 +20,24 @@ plugins {
 group 'no.netcompany.datotolk'
 version '0.1-SNAPSHOT'
 
+apply plugin: 'antlr'
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     maven { url 'http://dl.bintray.com/kotlin/kotlin-eap' }
     maven { url "http://dl.bintray.com/jetbrains/spek" }
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
+    antlr "org.antlr:antlr4:$antlr_version"
+
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     testCompile "junit:junit:$junit_version"
@@ -41,15 +48,57 @@ dependencies {
     testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
 }
 
+def generatedSrcDir = 'generated-src'
+def generatedJavaMain = "$generatedSrcDir/main/java"
+
+sourceSets {
+    generated {
+        java.srcDir "$generatedSrcDir/main/java/"
+    }
+}
+
+generateGrammarSource {
+    def packageName = 'no.netcompany.datotolk.parser'
+    def pathName = packageNameToPath(packageName)
+
+    arguments += ['-visitor']
+    arguments += ['-no-listener']
+    arguments += ['-package', packageName]
+    outputDirectory = file("$generatedJavaMain/$pathName")
+}
+
+compileJava {
+    source sourceSets.generated.java, sourceSets.main.java
+}
+
 compileKotlin {
+    dependsOn generateGrammarSource
+    source sourceSets.generated.java, sourceSets.main.kotlin
     kotlinOptions.jvmTarget = "1.8"
 }
+
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+clean {
+    delete generatedSrcDir
 }
 
 cucumber {
     formats = ['pretty', 'json:build/cucumber.json', 'junit:build/cucumber.xml']
     glueDirs = ['src/test/kotlin/no/netcompany/datotolk/cucumber']
     featureDirs = ['src/test/resources/features']
+}
+
+idea {
+    module {
+        generatedSourceDirs += file(generatedJavaMain)
+    }
+}
+
+static def packageNameToPath(String packageName) {
+    def dot = '.' as char
+    def slash = '/' as char
+    packageName.replace(dot, slash)
 }

@@ -1,26 +1,17 @@
 package no.netcompany.datotolk
 
-import no.netcompany.datotolk.datoutleder.DatoUtleder
-import no.netcompany.datotolk.datoutleder.SimpelDatoUtleder
-import no.netcompany.datotolk.util.*
+import no.netcompany.datotolk.parser.DatoUtlederVisitor
+import no.netcompany.datotolk.parser.DatotolkLexer
+import no.netcompany.datotolk.parser.DatotolkParser
+import org.antlr.v4.runtime.BufferedTokenStream
+import org.antlr.v4.runtime.CharStreams
 import java.time.LocalDate
 
 fun tolk(startdato: LocalDate, tekst: String): LocalDate {
-    val datoUtleder: DatoUtleder = tolkTekstTilDatoUtleder(tekst)
+    val lexer = DatotolkLexer(CharStreams.fromString(tekst))
+    val parser = DatotolkParser(BufferedTokenStream(lexer))
+    val datoUtleder = DatoUtlederVisitor.visit(parser.dato())
 
     return datoUtleder.fra(startdato)
 }
 
-private fun tolkTekstTilDatoUtleder(tekst: String): DatoUtleder {
-    if (inneholderIdag(tekst)) {
-        return SimpelDatoUtleder.iDagUtleder
-    } else if (inneholderIgår(tekst)) {
-        return SimpelDatoUtleder.iGaarUtleder
-    } else {
-        val antall = tekst.substring(0, 1).toInt()
-        val ukedag = finnUkedag(tekst)
-        val måned = finnMåned(tekst)
-
-        return finnNteUkedagIMåned(antall, ukedag, måned)
-    }
-}

@@ -14,7 +14,7 @@ AUGUST : 'august' ;
 
 SIFFER: [0-9] ;
 
-MAANED : 'måned' | 'måneder' ;
+MAANED : 'mnd' | 'måned' | 'måneder' ;
 AAR : 'år' ;
 
 FOER : 'før' ;

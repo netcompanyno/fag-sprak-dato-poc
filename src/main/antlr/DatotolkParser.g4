@@ -17,7 +17,7 @@ relativ : IDAG #idag
 
 periode : tall AAR #antallAar
         | tall MAANED #antallMaaneder
-        | periode (OG|KOMMA) periode #sammensattPeriode
+        | periode (OG|KOMMA)? periode #sammensattPeriode
         ;
 
 fast : flytendeUkedag I maaned #nteUkedagIMaaned
